@@ -157,6 +157,12 @@ Layout heuristics live in `crates/core/src/text_layout.rs` and are covered by un
 - [ ] Optional pure-Rust Word → PDF backend
 - [ ] CLI (`pdfword convert input.pdf output.docx`)
 
+## Author & Support
+
+Developed by **Nyco Paderayon**.
+
+If you find this open-source tool useful, you can support further development via GCash (`0907 097 2318`) or Maya (`0993 598 1720`).
+
 ## License
 
 MIT. Pdfium (BSD-3-Clause) and LibreOffice (MPL-2.0) are external dependencies and are not vendored in this repository.
