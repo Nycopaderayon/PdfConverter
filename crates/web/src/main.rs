@@ -18,6 +18,7 @@ use uuid::Uuid;
 const INDEX_HTML: &str = include_str!("../static/index.html");
 const STYLE_CSS: &str = include_str!("../static/style.css");
 const APP_JS: &str = include_str!("../static/app.js");
+const FAVICON_BYTES: &[u8] = include_bytes!("../static/favicon.png");
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "lowercase")]
@@ -183,6 +184,8 @@ async fn static_asset(Path(file): Path<String>) -> Result<Response, StatusCode> 
         if let Ok(bytes) = tokio::fs::read(&file_path).await {
             let mime = if file.ends_with(".png") {
                 "image/png"
+            } else if file.ends_with(".ico") {
+                "image/x-icon"
             } else if file.ends_with(".jpg") || file.ends_with(".jpeg") {
                 "image/jpeg"
             } else if file.ends_with(".svg") {
@@ -201,6 +204,13 @@ async fn static_asset(Path(file): Path<String>) -> Result<Response, StatusCode> 
     }
 
     Err(StatusCode::NOT_FOUND)
+}
+
+async fn favicon() -> impl IntoResponse {
+    (
+        [(header::CONTENT_TYPE, HeaderValue::from_static("image/png"))],
+        FAVICON_BYTES,
+    )
 }
 
 async fn health() -> &'static str {
@@ -614,6 +624,8 @@ async fn main() {
 
     let app = Router::new()
         .route("/", get(index))
+        .route("/favicon.ico", get(favicon))
+        .route("/favicon.png", get(favicon))
         .route("/static/style.css", get(stylesheet))
         .route("/static/app.js", get(script))
         .route("/static/{file}", get(static_asset))
