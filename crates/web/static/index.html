@@ -348,55 +348,26 @@
             </div>
 
             <!-- Wallet Details Box -->
-            <div class="bg-gray-50 dark:bg-navy-inner border border-gray-200 dark:border-navy-border rounded-xl p-4 mb-4">
+            <div class="bg-gray-50 dark:bg-navy-inner border border-gray-200 dark:border-navy-border rounded-xl p-4">
                 <div class="flex items-center justify-between mb-3 pb-2 border-b border-gray-200 dark:border-navy-border/60">
                     <div>
                         <span class="text-[10px] uppercase font-mono text-gray-400 tracking-wider">Account Name</span>
-                        <div id="donateAccountName" class="text-sm font-bold text-gray-800 dark:text-gray-100">NYC (DEVELOPER)</div>
+                        <div id="donateAccountName" class="text-sm font-bold text-gray-800 dark:text-gray-100">Nyc</div>
                     </div>
                     <span id="donateWalletBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20 font-semibold">GCash</span>
                 </div>
 
-                <div class="mb-3">
+                <div>
                     <span class="text-[10px] uppercase font-mono text-gray-400 tracking-wider">Mobile Number</span>
-                    <div class="flex items-center justify-between mt-1 p-2 rounded-lg bg-white dark:bg-navy-card border border-gray-300 dark:border-navy-border">
-                        <span id="donateNumber" class="font-mono text-base font-bold text-gray-900 dark:text-gray-100 tracking-wider">0907 097 2318</span>
-                        <button onclick="copyDonateNumber()" class="px-2.5 py-1 rounded-md text-xs font-medium bg-rust/10 text-rust hover:bg-rust hover:text-white transition-all flex items-center gap-1">
+                    <div class="flex items-center justify-between mt-1 p-2.5 rounded-lg bg-white dark:bg-navy-card border border-gray-300 dark:border-navy-border">
+                        <span id="donateNumber" class="font-mono text-base sm:text-lg font-bold text-gray-900 dark:text-gray-100 tracking-wider">0907 097 2318</span>
+                        <button onclick="copyDonateNumber()" class="px-3 py-1.5 rounded-md text-xs font-semibold bg-rust/10 text-rust hover:bg-rust hover:text-white transition-all flex items-center gap-1.5 shadow-sm">
                             <i class="fa-regular fa-copy"></i>
                             <span id="copyBtnText">Copy</span>
                         </button>
                     </div>
                 </div>
-
-                <!-- QR Scan Area -->
-                <div class="text-center p-3 rounded-lg border border-dashed border-gray-300 dark:border-navy-border bg-white/50 dark:bg-navy-card/50">
-                    <div id="donateQrContainer" class="flex flex-col items-center justify-center">
-                        <i class="fa-solid fa-qrcode text-4xl text-gray-400 dark:text-gray-500 mb-1"></i>
-                        <p class="text-[11px] text-gray-500 dark:text-gray-400">Scan QR or Send to Number via <span id="donateWalletName" class="font-semibold text-blue-500">GCash</span></p>
-                    </div>
-                </div>
             </div>
-
-            <!-- Suggested Amounts (PHP) -->
-            <div class="grid grid-cols-4 gap-2 mb-4">
-                <button onclick="selectDonateTier('₱20')" class="py-1.5 rounded-lg border border-gray-300 dark:border-navy-border hover:border-rust hover:text-rust text-xs font-mono font-semibold transition-all">
-                    ₱20
-                </button>
-                <button onclick="selectDonateTier('₱50')" class="py-1.5 rounded-lg border border-rust bg-rust/10 text-rust text-xs font-mono font-semibold transition-all">
-                    ₱50
-                </button>
-                <button onclick="selectDonateTier('₱100')" class="py-1.5 rounded-lg border border-gray-300 dark:border-navy-border hover:border-rust hover:text-rust text-xs font-mono font-semibold transition-all">
-                    ₱100
-                </button>
-                <button onclick="selectDonateTier('₱500')" class="py-1.5 rounded-lg border border-gray-300 dark:border-navy-border hover:border-rust hover:text-rust text-xs font-mono font-semibold transition-all">
-                    ₱500
-                </button>
-            </div>
-
-            <button onclick="confirmDonationSent()" class="w-full bg-rust hover:bg-rust-hover text-white py-2.5 rounded-xl font-medium text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-heart"></i>
-                <span>I've Sent a Support Donation</span>
-            </button>
         </div>
     </div>
 
