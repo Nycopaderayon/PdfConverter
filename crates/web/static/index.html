@@ -37,6 +37,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             transition: background-color 0.3s ease, color 0.3s ease;
         }
@@ -65,27 +68,76 @@
 </head>
 <body class="bg-gray-100 text-gray-800 dark:bg-navy-bg dark:text-gray-100 min-h-screen flex flex-col justify-between font-sans selection:bg-rust/30 selection:text-rust">
 
-    <!-- HEADER BAR -->
-    <header class="w-full px-6 sm:px-12 py-5 flex items-center justify-between">
-        <!-- Logo & Subtitle -->
-        <div class="flex items-center space-x-3">
-            <div>
-                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight font-sans text-gray-900 dark:text-gray-100 flex items-center gap-2">
-                    <span class="text-rust">Nyc-</span><span>PdfWord Converter</span>
-                </h1>
-                <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-light italic">Open Source Converter</p>
+    <!-- STICKY TOP NAVBAR -->
+    <header class="sticky top-0 z-40 w-full border-b border-gray-200/80 dark:border-navy-border/80 bg-white/85 dark:bg-navy-bg/85 backdrop-blur-md transition-all">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
+            <!-- Brand Logo & Title -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-9 h-9 rounded-xl bg-rust/10 border border-rust/30 flex items-center justify-center text-rust group-hover:scale-105 transition-transform shadow-sm">
+                    <i class="fa-solid fa-file-invoice text-base"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight font-sans text-gray-900 dark:text-gray-100 flex items-center gap-1.5 leading-tight">
+                        <span class="text-rust">Nyc-</span><span>PdfWord</span>
+                    </h1>
+                    <p class="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400 font-light italic leading-none">Open Source Converter</p>
+                </div>
+            </a>
+
+            <!-- Center Navigation Links (Desktop) -->
+            <nav class="hidden md:flex items-center space-x-1 p-1 rounded-full border border-gray-200 dark:border-navy-border bg-gray-50/80 dark:bg-navy-card/80 backdrop-blur-sm text-xs font-medium">
+                <a href="#converters" class="px-3.5 py-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-rust hover:bg-white dark:hover:bg-navy-inner transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrows-rotate text-rust text-[11px]"></i>
+                    <span>Converters</span>
+                </a>
+                <a href="#how-it-works" class="px-3.5 py-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-rust hover:bg-white dark:hover:bg-navy-inner transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-wand-magic-sparkles text-blue-500 text-[11px]"></i>
+                    <span>How it Works</span>
+                </a>
+                <a href="#features" class="px-3.5 py-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-rust hover:bg-white dark:hover:bg-navy-inner transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-shield-halved text-emerald-500 text-[11px]"></i>
+                    <span>Features</span>
+                </a>
+                <a href="#developer" class="px-3.5 py-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:text-rust hover:bg-white dark:hover:bg-navy-inner transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-user-check text-purple-400 text-[11px]"></i>
+                    <span>Developer</span>
+                </a>
+            </nav>
+
+            <!-- Right Actions: Donate, Theme Toggle, Mobile Menu -->
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <button onclick="openDonateModal()" class="px-3.5 py-1.5 rounded-full border border-rust/30 bg-rust/10 text-rust hover:bg-rust hover:text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-sm group">
+                    <i class="fa-solid fa-heart text-rust group-hover:text-white transition-colors"></i>
+                    <span>Donate</span>
+                </button>
+                <button id="themeToggleBtn" onclick="toggleTheme()" class="w-9 h-9 rounded-full border border-gray-300 dark:border-navy-border bg-white dark:bg-navy-card text-rust flex items-center justify-center shadow-sm hover:scale-105 transition-all focus:outline-none" title="Toggle Theme">
+                    <i id="themeIcon" class="fa-solid fa-moon text-sm"></i>
+                </button>
+                <!-- Hamburger Button for Mobile -->
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden w-9 h-9 rounded-lg border border-gray-300 dark:border-navy-border bg-white dark:bg-navy-card text-gray-700 dark:text-gray-300 flex items-center justify-center hover:border-rust transition-all focus:outline-none" title="Menu">
+                    <i id="mobileMenuIcon" class="fa-solid fa-bars text-sm"></i>
+                </button>
             </div>
         </div>
 
-        <!-- Right Side: Support & Theme Toggle Button -->
-        <div class="flex items-center space-x-3">
-            <button onclick="openDonateModal()" class="px-3 py-2 rounded-full border border-gray-300 dark:border-navy-border bg-white dark:bg-navy-card text-xs font-medium text-gray-700 dark:text-gray-300 hover:border-rust hover:text-rust transition-all flex items-center gap-1.5 shadow-sm">
-                <i class="fa-solid fa-heart text-rust"></i>
-                <span class="hidden sm:inline">Donate</span>
-            </button>
-            <button id="themeToggleBtn" onclick="toggleTheme()" class="w-10 h-10 rounded-full border border-gray-300 dark:border-navy-border bg-white dark:bg-navy-card text-rust flex items-center justify-center shadow-md hover:scale-105 transition-all focus:outline-none" title="Toggle Theme">
-                <i id="themeIcon" class="fa-solid fa-moon text-lg"></i>
-            </button>
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-gray-200 dark:border-navy-border bg-white dark:bg-navy-card px-6 py-3 space-y-2 text-xs font-medium">
+            <a href="#converters" onclick="toggleMobileMenu()" class="flex items-center gap-2.5 py-2 text-gray-700 dark:text-gray-300 hover:text-rust">
+                <i class="fa-solid fa-arrows-rotate text-rust w-4"></i>
+                <span>Converters</span>
+            </a>
+            <a href="#how-it-works" onclick="toggleMobileMenu()" class="flex items-center gap-2.5 py-2 text-gray-700 dark:text-gray-300 hover:text-rust">
+                <i class="fa-solid fa-wand-magic-sparkles text-blue-500 w-4"></i>
+                <span>How it Works</span>
+            </a>
+            <a href="#features" onclick="toggleMobileMenu()" class="flex items-center gap-2.5 py-2 text-gray-700 dark:text-gray-300 hover:text-rust">
+                <i class="fa-solid fa-shield-halved text-emerald-500 w-4"></i>
+                <span>Features & Privacy</span>
+            </a>
+            <a href="#developer" onclick="toggleMobileMenu()" class="flex items-center gap-2.5 py-2 text-gray-700 dark:text-gray-300 hover:text-rust">
+                <i class="fa-solid fa-user-check text-purple-400 w-4"></i>
+                <span>Developer (Nyco Paderayon)</span>
+            </a>
         </div>
     </header>
 
@@ -99,7 +151,7 @@
         </div>
 
         <!-- 2x2 MODULAR GRID (ONE-BY-ONE BOX PER MODULE) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl">
+        <div id="converters" class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl scroll-mt-24">
 
             <!-- MODULE BOX 1: PDF -> Word -->
             <div class="module-card bg-white dark:bg-navy-card border border-gray-300 dark:border-navy-border rounded-xl p-6 shadow-lg flex flex-col justify-between">
@@ -298,6 +350,95 @@
             </div>
 
         </div>
+
+        <!-- HOW IT WORKS SECTION -->
+        <section id="how-it-works" class="w-full max-w-5xl mt-16 pt-8 border-t border-gray-200 dark:border-navy-border/60 scroll-mt-24">
+            <div class="text-center mb-8">
+                <span class="text-xs font-mono font-semibold uppercase tracking-wider text-rust">Simple & Fast</span>
+                <h2 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mt-1">How Nyc-PdfWord Works</h2>
+                <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">Convert documents directly on your machine with high fidelity</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-5 rounded-xl border border-gray-200 dark:border-navy-border bg-white dark:bg-navy-card shadow-sm">
+                    <div class="w-10 h-10 rounded-lg bg-rust/10 text-rust flex items-center justify-center font-bold text-base mb-3 font-mono">1</div>
+                    <h3 class="text-sm font-bold text-gray-800 dark:text-gray-100 mb-1">Upload Your Document</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Drop or select your PDF, Kingsoft WPS Office (.wps, .wpt), or Microsoft Word (.docx, .doc) file.</p>
+                </div>
+
+                <div class="p-5 rounded-xl border border-gray-200 dark:border-navy-border bg-white dark:bg-navy-card shadow-sm">
+                    <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold text-base mb-3 font-mono">2</div>
+                    <h3 class="text-sm font-bold text-gray-800 dark:text-gray-100 mb-1">Select Fidelity Mode</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Choose between Editable Layout (clean paragraphs and tables) or Exact Visual (pixel-level positioning).</p>
+                </div>
+
+                <div class="p-5 rounded-xl border border-gray-200 dark:border-navy-border bg-white dark:bg-navy-card shadow-sm">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-base mb-3 font-mono">3</div>
+                    <h3 class="text-sm font-bold text-gray-800 dark:text-gray-100 mb-1">Instant Download</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">The high-speed Rust backend processes your document instantly. Files download automatically and are purged.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES & PRIVACY SECTION -->
+        <section id="features" class="w-full max-w-5xl mt-14 pt-8 border-t border-gray-200 dark:border-navy-border/60 scroll-mt-24">
+            <div class="text-center mb-8">
+                <span class="text-xs font-mono font-semibold uppercase tracking-wider text-emerald-500">Core Architecture</span>
+                <h2 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mt-1">Features & Privacy Guarantees</h2>
+                <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">Built with Rust for speed, accuracy, and zero telemetry</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="p-4 rounded-xl border border-gray-200 dark:border-navy-border bg-white dark:bg-navy-card">
+                    <i class="fa-solid fa-bolt text-rust text-lg mb-2"></i>
+                    <h4 class="text-xs font-bold text-gray-800 dark:text-gray-100 mb-1">Native Rust Speed</h4>
+                    <p class="text-[11px] text-gray-500 dark:text-gray-400">Powered by Axum and Pdfium for rapid, low-latency document compilation.</p>
+                </div>
+
+                <div class="p-4 rounded-xl border border-gray-200 dark:border-navy-border bg-white dark:bg-navy-card">
+                    <i class="fa-solid fa-shield-halved text-emerald-500 text-lg mb-2"></i>
+                    <h4 class="text-xs font-bold text-gray-800 dark:text-gray-100 mb-1">Zero Cloud Retention</h4>
+                    <p class="text-[11px] text-gray-500 dark:text-gray-400">Your documents are processed locally in an isolated sandbox and deleted automatically.</p>
+                </div>
+
+                <div class="p-4 rounded-xl border border-gray-200 dark:border-navy-border bg-white dark:bg-navy-card">
+                    <i class="fa-solid fa-file-shield text-blue-500 text-lg mb-2"></i>
+                    <h4 class="text-xs font-bold text-gray-800 dark:text-gray-100 mb-1">Full WPS & Works</h4>
+                    <p class="text-[11px] text-gray-500 dark:text-gray-400">Converts modern WPS Office (.wps, .wpt) as well as legacy Microsoft Works formats.</p>
+                </div>
+
+                <div class="p-4 rounded-xl border border-gray-200 dark:border-navy-border bg-white dark:bg-navy-card">
+                    <i class="fa-solid fa-code text-purple-500 text-lg mb-2"></i>
+                    <h4 class="text-xs font-bold text-gray-800 dark:text-gray-100 mb-1">100% Free Forever</h4>
+                    <p class="text-[11px] text-gray-500 dark:text-gray-400">Open-source software under MIT License. No registration, no watermarks.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEVELOPER SECTION -->
+        <section id="developer" class="w-full max-w-5xl mt-14 mb-8 pt-8 border-t border-gray-200 dark:border-navy-border/60 scroll-mt-24">
+            <div class="p-6 rounded-2xl border border-gray-200 dark:border-navy-border bg-white dark:bg-navy-card shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div class="flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-rust to-orange-400 text-white flex items-center justify-center font-bold text-xl shadow-md">
+                        NP
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-base font-bold text-gray-900 dark:text-gray-100">Nyco Paderayon</h3>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-rust/10 text-rust border border-rust/20 font-semibold">Developer</span>
+                        </div>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Creator of Nyc-PdfWord Converter · Open Source Document Engineering</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button onclick="openDonateModal()" class="px-4 py-2 rounded-xl bg-rust text-white hover:bg-rust-hover font-semibold text-xs flex items-center gap-2 shadow-sm transition-all">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Support via GCash / Maya</span>
+                    </button>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- BOTTOM BADGES BAR -->
@@ -400,6 +541,19 @@
             } else {
                 html.classList.add('dark');
                 icon.className = 'fa-solid fa-moon text-lg text-rust';
+            }
+        }
+
+        // Toggle Mobile Menu Drawer
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                if (icon) icon.className = 'fa-solid fa-xmark text-sm';
+            } else {
+                menu.classList.add('hidden');
+                if (icon) icon.className = 'fa-solid fa-bars text-sm';
             }
         }
 
