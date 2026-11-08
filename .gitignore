@@ -1,0 +1,9 @@
+/target
+/vendor/pdfium/
+/jobs
+*.docx
+*.pdf
+!tests/fixtures/*.pdf
+!tests/fixtures/*.docx
+.env
+.DS_Store

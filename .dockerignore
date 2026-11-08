@@ -1,0 +1,9 @@
+target
+vendor
+.git
+.github
+jobs
+*.docx
+*.pdf
+!tests/fixtures/*.pdf
+!tests/fixtures/*.docx
