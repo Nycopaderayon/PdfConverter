@@ -320,35 +320,82 @@
         </div>
     </footer>
 
-    <!-- DONATION MODAL -->
-    <div id="donateModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <!-- DONATION MODAL (GCASH & MAYA) -->
+    <div id="donateModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white dark:bg-navy-card border border-gray-300 dark:border-navy-border rounded-2xl p-6 max-w-md w-full shadow-2xl relative">
             <button onclick="closeDonateModal()" class="absolute top-4 right-4 text-gray-400 hover:text-rust">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
 
-            <div class="text-center mb-6">
-                <div class="w-12 h-12 rounded-full bg-rust/10 text-rust flex items-center justify-center mx-auto mb-3 text-xl">
-                    <i class="fa-solid fa-mug-hot"></i>
+            <div class="text-center mb-5">
+                <div class="w-12 h-12 rounded-full bg-rust/10 text-rust flex items-center justify-center mx-auto mb-2 text-xl">
+                    <i class="fa-solid fa-heart"></i>
                 </div>
                 <h3 class="text-lg font-bold">Support Nyc-PdfWord</h3>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">100% free & open source converter powered by Rust.</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Help keep this free open-source converter running!</p>
             </div>
 
-            <div class="grid grid-cols-3 gap-3 mb-5">
-                <button onclick="selectDonate(3)" class="py-2.5 rounded-xl border border-gray-300 dark:border-navy-border hover:border-rust hover:text-rust font-mono text-sm font-semibold transition-all">
-                    $3.00
+            <!-- Payment Method Tabs: GCash vs Maya -->
+            <div class="grid grid-cols-2 gap-2 p-1 bg-gray-100 dark:bg-navy-inner border border-gray-200 dark:border-navy-border rounded-xl mb-4">
+                <button id="gcashTabBtn" onclick="switchDonateWallet('gcash')" class="py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all bg-blue-600 text-white shadow-sm">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <span>GCash</span>
                 </button>
-                <button onclick="selectDonate(5)" class="py-2.5 rounded-xl border border-rust bg-rust/10 text-rust font-mono text-sm font-semibold transition-all">
-                    $5.00
-                </button>
-                <button onclick="selectDonate(10)" class="py-2.5 rounded-xl border border-gray-300 dark:border-navy-border hover:border-rust hover:text-rust font-mono text-sm font-semibold transition-all">
-                    $10.00
+                <button id="mayaTabBtn" onclick="switchDonateWallet('maya')" class="py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Maya</span>
                 </button>
             </div>
 
-            <button onclick="submitDonation()" class="w-full bg-rust hover:bg-rust-hover text-white py-3 rounded-xl font-medium text-sm transition-all shadow-md">
-                Complete Donation
+            <!-- Wallet Details Box -->
+            <div class="bg-gray-50 dark:bg-navy-inner border border-gray-200 dark:border-navy-border rounded-xl p-4 mb-4">
+                <div class="flex items-center justify-between mb-3 pb-2 border-b border-gray-200 dark:border-navy-border/60">
+                    <div>
+                        <span class="text-[10px] uppercase font-mono text-gray-400 tracking-wider">Account Name</span>
+                        <div id="donateAccountName" class="text-sm font-bold text-gray-800 dark:text-gray-100">NYC (DEVELOPER)</div>
+                    </div>
+                    <span id="donateWalletBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20 font-semibold">GCash</span>
+                </div>
+
+                <div class="mb-3">
+                    <span class="text-[10px] uppercase font-mono text-gray-400 tracking-wider">Mobile Number</span>
+                    <div class="flex items-center justify-between mt-1 p-2 rounded-lg bg-white dark:bg-navy-card border border-gray-300 dark:border-navy-border">
+                        <span id="donateNumber" class="font-mono text-base font-bold text-gray-900 dark:text-gray-100 tracking-wider">09XX XXX XXXX</span>
+                        <button onclick="copyDonateNumber()" class="px-2.5 py-1 rounded-md text-xs font-medium bg-rust/10 text-rust hover:bg-rust hover:text-white transition-all flex items-center gap-1">
+                            <i class="fa-regular fa-copy"></i>
+                            <span id="copyBtnText">Copy</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- QR Scan Area -->
+                <div class="text-center p-3 rounded-lg border border-dashed border-gray-300 dark:border-navy-border bg-white/50 dark:bg-navy-card/50">
+                    <div id="donateQrContainer" class="flex flex-col items-center justify-center">
+                        <i class="fa-solid fa-qrcode text-4xl text-gray-400 dark:text-gray-500 mb-1"></i>
+                        <p class="text-[11px] text-gray-500 dark:text-gray-400">Scan QR or Send to Number via <span id="donateWalletName" class="font-semibold text-blue-500">GCash</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suggested Amounts (PHP) -->
+            <div class="grid grid-cols-4 gap-2 mb-4">
+                <button onclick="selectDonateTier('₱20')" class="py-1.5 rounded-lg border border-gray-300 dark:border-navy-border hover:border-rust hover:text-rust text-xs font-mono font-semibold transition-all">
+                    ₱20
+                </button>
+                <button onclick="selectDonateTier('₱50')" class="py-1.5 rounded-lg border border-rust bg-rust/10 text-rust text-xs font-mono font-semibold transition-all">
+                    ₱50
+                </button>
+                <button onclick="selectDonateTier('₱100')" class="py-1.5 rounded-lg border border-gray-300 dark:border-navy-border hover:border-rust hover:text-rust text-xs font-mono font-semibold transition-all">
+                    ₱100
+                </button>
+                <button onclick="selectDonateTier('₱500')" class="py-1.5 rounded-lg border border-gray-300 dark:border-navy-border hover:border-rust hover:text-rust text-xs font-mono font-semibold transition-all">
+                    ₱500
+                </button>
+            </div>
+
+            <button onclick="confirmDonationSent()" class="w-full bg-rust hover:bg-rust-hover text-white py-2.5 rounded-xl font-medium text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-heart"></i>
+                <span>I've Sent a Support Donation</span>
             </button>
         </div>
     </div>
@@ -568,22 +615,89 @@
             }
         }
 
-        // Donation Modal Handlers
+        // Real GCash & Maya Donation Handlers
+        const DONATION_CONFIG = {
+            gcash: {
+                name: 'GCash',
+                accountName: 'NYC (DEVELOPER)',
+                number: '09XX XXX XXXX',
+                color: 'text-blue-500',
+                badgeBg: 'bg-blue-500/10 border-blue-500/20 text-blue-500'
+            },
+            maya: {
+                name: 'Maya',
+                accountName: 'NYC (DEVELOPER)',
+                number: '09XX XXX XXXX',
+                color: 'text-emerald-500',
+                badgeBg: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500'
+            }
+        };
+
+        let currentWallet = 'gcash';
+
         function openDonateModal() {
             document.getElementById('donateModal').classList.remove('hidden');
+            switchDonateWallet('gcash');
         }
 
         function closeDonateModal() {
             document.getElementById('donateModal').classList.add('hidden');
         }
 
-        function selectDonate(amount) {
-            showToast(`Selected $${amount} support tier`);
+        function switchDonateWallet(wallet) {
+            currentWallet = wallet;
+            const isGcash = wallet === 'gcash';
+            const cfg = DONATION_CONFIG[wallet];
+
+            const gcashBtn = document.getElementById('gcashTabBtn');
+            const mayaBtn = document.getElementById('mayaTabBtn');
+            const nameElem = document.getElementById('donateAccountName');
+            const numberElem = document.getElementById('donateNumber');
+            const badgeElem = document.getElementById('donateWalletBadge');
+            const walletNameElem = document.getElementById('donateWalletName');
+
+            if (isGcash) {
+                gcashBtn.className = 'py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all bg-blue-600 text-white shadow-sm';
+                mayaBtn.className = 'py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white';
+            } else {
+                mayaBtn.className = 'py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all bg-emerald-600 text-white shadow-sm';
+                gcashBtn.className = 'py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white';
+            }
+
+            if (nameElem) nameElem.innerText = cfg.accountName;
+            if (numberElem) numberElem.innerText = cfg.number;
+            if (badgeElem) {
+                badgeElem.innerText = cfg.name;
+                badgeElem.className = `text-[10px] font-mono px-2 py-0.5 rounded-full border font-semibold ${cfg.badgeBg}`;
+            }
+            if (walletNameElem) {
+                walletNameElem.innerText = cfg.name;
+                walletNameElem.className = `font-semibold ${cfg.color}`;
+            }
         }
 
-        function submitDonation() {
+        function copyDonateNumber() {
+            const num = DONATION_CONFIG[currentWallet].number;
+            const cleanNum = num.replace(/[^0-9]/g, '');
+            navigator.clipboard.writeText(cleanNum).then(() => {
+                const btn = document.getElementById('copyBtnText');
+                if (btn) {
+                    btn.innerText = 'Copied!';
+                    setTimeout(() => { btn.innerText = 'Copy'; }, 2000);
+                }
+                showToast(`${DONATION_CONFIG[currentWallet].name} number copied to clipboard!`);
+            }).catch(() => {
+                showToast(`Number: ${num}`);
+            });
+        }
+
+        function selectDonateTier(amount) {
+            showToast(`Selected ${amount} support for ${DONATION_CONFIG[currentWallet].name}`);
+        }
+
+        function confirmDonationSent() {
             closeDonateModal();
-            showToast('Thank you for supporting Rust open-source!');
+            showToast('Maraming Salamat! Thank you so much for supporting Nyc-PdfWord! 💙');
         }
 
         // Toast Notification System
