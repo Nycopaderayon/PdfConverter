@@ -175,7 +175,7 @@
 
                     <!-- Dropzone -->
                     <div id="wps-pdf-dropzone" onclick="triggerFileInput('wps-pdf-file')" class="border-2 border-dashed border-gray-300 dark:border-navy-border hover:border-rust/60 rounded-xl p-4 text-center cursor-pointer bg-gray-50/50 dark:bg-navy-inner/40 transition-all">
-                        <input type="file" id="wps-pdf-file" class="hidden" accept=".wps,.wpt,.doc,.docx" onchange="handleModuleUpload(this, 'wps-pdf')">
+                        <input type="file" id="wps-pdf-file" class="hidden" accept=".wps,.wpt" onchange="handleModuleUpload(this, 'wps-pdf')">
                         <i class="fa-solid fa-cloud-arrow-up text-gray-400 dark:text-gray-500 text-xl mb-1"></i>
                         <p class="text-xs text-gray-500 dark:text-gray-400 font-mono">Drop WPS file here or click to upload</p>
                     </div>
@@ -224,7 +224,7 @@
 
                     <!-- Dropzone -->
                     <div id="wps-word-dropzone" onclick="triggerFileInput('wps-word-file')" class="border-2 border-dashed border-gray-300 dark:border-navy-border hover:border-rust/60 rounded-xl p-4 text-center cursor-pointer bg-gray-50/50 dark:bg-navy-inner/40 transition-all">
-                        <input type="file" id="wps-word-file" class="hidden" accept=".wps,.wpt,.doc" onchange="handleModuleUpload(this, 'wps-word')">
+                        <input type="file" id="wps-word-file" class="hidden" accept=".wps,.wpt" onchange="handleModuleUpload(this, 'wps-word')">
                         <i class="fa-solid fa-cloud-arrow-up text-gray-400 dark:text-gray-500 text-xl mb-1"></i>
                         <p class="text-xs text-gray-500 dark:text-gray-400 font-mono">Drop WPS file here or click to upload</p>
                     </div>
@@ -385,21 +385,43 @@
             }
         }
 
-        // File Input Trigger
+        const moduleExtensions = {
+            'pdf-word': { exts: ['.pdf'], label: 'PDF file (.pdf)' },
+            'wps-pdf':  { exts: ['.wps', '.wpt'], label: 'WPS file (.wps, .wpt)' },
+            'wps-word': { exts: ['.wps', '.wpt'], label: 'WPS file (.wps, .wpt)' },
+            'word-pdf': { exts: ['.docx', '.doc'], label: 'Word file (.docx, .doc)' }
+        };
+
+        // File Input Trigger (clears value first so selecting the same file works)
         function triggerFileInput(id) {
-            document.getElementById(id).click();
+            const el = document.getElementById(id);
+            if (el) {
+                el.value = '';
+                el.click();
+            }
         }
 
         function setModuleFile(file, moduleId) {
+            if (!file) {
+                moduleFiles[moduleId] = null;
+                const previewBox = document.getElementById(`${moduleId}-preview`);
+                if (previewBox) previewBox.classList.add('hidden');
+                return;
+            }
+
+            // Validate file extension against module type
+            const spec = moduleExtensions[moduleId];
+            const name = file.name.toLowerCase();
+            const isValid = spec.exts.some(ext => name.endsWith(ext));
+            if (!isValid) {
+                showToast(`Please select a valid ${spec.label}`);
+                return;
+            }
+
             moduleFiles[moduleId] = file;
             const previewBox = document.getElementById(`${moduleId}-preview`);
             const textElem = document.getElementById(`${moduleId}-text`);
             const statsElem = document.getElementById(`${moduleId}-stats`);
-
-            if (!file) {
-                previewBox.classList.add('hidden');
-                return;
-            }
 
             previewBox.classList.remove('hidden');
 
