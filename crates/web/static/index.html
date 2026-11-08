@@ -75,11 +75,6 @@
                 </h1>
                 <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-light italic">Open Source Converter</p>
             </div>
-            <!-- Rust Badge -->
-            <span class="hidden md:inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-rust/10 text-rust border border-rust/20 ml-2">
-                <i class="fa-solid fa-bolt text-xs"></i>
-                <span>WASM Engine</span>
-            </span>
         </div>
 
         <!-- Right Side: Support & Theme Toggle Button -->
@@ -148,7 +143,7 @@
 
                 <!-- Footer Action & Status -->
                 <div class="mt-4 pt-3 border-t border-gray-200 dark:border-navy-border/60 flex items-center justify-between text-xs text-gray-400">
-                    <span class="font-mono text-[11px]">Engine: WASM v1.78</span>
+                    <span class="font-mono text-[11px]">Engine: Rust</span>
                     <button id="pdf-word-btn" onclick="processModuleConvert('pdf-word')" class="text-rust hover:underline font-semibold flex items-center gap-1">
                         <span id="pdf-word-btn-text">Convert</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </button>
@@ -197,7 +192,7 @@
 
                 <!-- Footer Action & Status -->
                 <div class="mt-4 pt-3 border-t border-gray-200 dark:border-navy-border/60 flex items-center justify-between text-xs text-gray-400">
-                    <span class="font-mono text-[11px]">Engine: WASM v1.78</span>
+                    <span class="font-mono text-[11px]">Engine: Rust</span>
                     <button id="wps-pdf-btn" onclick="processModuleConvert('wps-pdf')" class="text-rust hover:underline font-semibold flex items-center gap-1">
                         <span id="wps-pdf-btn-text">Convert</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </button>
@@ -246,7 +241,7 @@
 
                 <!-- Footer Action & Status -->
                 <div class="mt-4 pt-3 border-t border-gray-200 dark:border-navy-border/60 flex items-center justify-between text-xs text-gray-400">
-                    <span class="font-mono text-[11px]">Engine: WASM v1.78</span>
+                    <span class="font-mono text-[11px]">Engine: Rust</span>
                     <button id="wps-word-btn" onclick="processModuleConvert('wps-word')" class="text-rust hover:underline font-semibold flex items-center gap-1">
                         <span id="wps-word-btn-text">Convert</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </button>
@@ -295,7 +290,7 @@
 
                 <!-- Footer Action & Status -->
                 <div class="mt-4 pt-3 border-t border-gray-200 dark:border-navy-border/60 flex items-center justify-between text-xs text-gray-400">
-                    <span class="font-mono text-[11px]">Engine: WASM v1.78</span>
+                    <span class="font-mono text-[11px]">Engine: Rust</span>
                     <button id="word-pdf-btn" onclick="processModuleConvert('word-pdf')" class="text-rust hover:underline font-semibold flex items-center gap-1">
                         <span id="word-pdf-btn-text">Convert</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </button>
@@ -337,7 +332,7 @@
                     <i class="fa-solid fa-mug-hot"></i>
                 </div>
                 <h3 class="text-lg font-bold">Support Nyc-PdfWord</h3>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">100% free & open source converter powered by client-side WebAssembly.</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">100% free & open source converter powered by Rust.</p>
             </div>
 
             <div class="grid grid-cols-3 gap-3 mb-5">
@@ -409,9 +404,9 @@
             previewBox.classList.remove('hidden');
 
             const sampleTexts = [
-                "Rust WASM Engine: Processing document structures locally in browser memory...",
-                "Abstract: High performance document conversion retaining paragraph styling...",
-                "Specification: 0ms network latency. Fully secure offline WebAssembly parser..."
+                "Rust Engine: High performance document conversion retaining paragraph styling...",
+                "Abstract: Native multithreaded document processing pipeline...",
+                "Specification: Zero external tracking. Fully secure and self-hosted parser..."
             ];
             const text = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
             const wordCount = Math.floor(Math.random() * 200) + 120;
