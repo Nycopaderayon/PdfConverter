@@ -172,6 +172,37 @@ async fn script() -> impl IntoResponse {
     )
 }
 
+async fn static_asset(Path(file): Path<String>) -> Result<Response, StatusCode> {
+    if file.contains("..") || file.contains('/') || file.contains('\\') {
+        return Err(StatusCode::BAD_REQUEST);
+    }
+
+    let static_dir = FsPath::new("crates/web/static");
+    let file_path = static_dir.join(&file);
+    if file_path.is_file() {
+        if let Ok(bytes) = tokio::fs::read(&file_path).await {
+            let mime = if file.ends_with(".png") {
+                "image/png"
+            } else if file.ends_with(".jpg") || file.ends_with(".jpeg") {
+                "image/jpeg"
+            } else if file.ends_with(".svg") {
+                "image/svg+xml"
+            } else if file.ends_with(".webp") {
+                "image/webp"
+            } else if file.ends_with(".css") {
+                "text/css; charset=utf-8"
+            } else if file.ends_with(".js") {
+                "text/javascript; charset=utf-8"
+            } else {
+                "application/octet-stream"
+            };
+            return Ok(([(header::CONTENT_TYPE, mime)], bytes).into_response());
+        }
+    }
+
+    Err(StatusCode::NOT_FOUND)
+}
+
 async fn health() -> &'static str {
     "ok"
 }
@@ -585,6 +616,7 @@ async fn main() {
         .route("/", get(index))
         .route("/static/style.css", get(stylesheet))
         .route("/static/app.js", get(script))
+        .route("/static/{file}", get(static_asset))
         .route("/healthz", get(health))
         .route("/api/stats", get(get_stats))
         .route("/api/stats/ping", post(ping_stats))
