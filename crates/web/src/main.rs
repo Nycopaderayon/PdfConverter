@@ -208,7 +208,10 @@ async fn static_asset(Path(file): Path<String>) -> Result<Response, StatusCode> 
 
 async fn favicon() -> impl IntoResponse {
     (
-        [(header::CONTENT_TYPE, HeaderValue::from_static("image/png"))],
+        [
+            (header::CONTENT_TYPE, HeaderValue::from_static("image/png")),
+            (header::CACHE_CONTROL, HeaderValue::from_static("public, max-age=86400")),
+        ],
         FAVICON_BYTES,
     )
 }
@@ -626,6 +629,8 @@ async fn main() {
         .route("/", get(index))
         .route("/favicon.ico", get(favicon))
         .route("/favicon.png", get(favicon))
+        .route("/static/favicon.png", get(favicon))
+        .route("/static/favicon.ico", get(favicon))
         .route("/static/style.css", get(stylesheet))
         .route("/static/app.js", get(script))
         .route("/static/{file}", get(static_asset))

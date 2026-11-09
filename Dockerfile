@@ -37,6 +37,8 @@ ENV WORK_DIR=/data
 
 COPY --from=builder /app/target/release/pdfword /usr/local/bin/pdfword
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY crates/web/static /app/crates/web/static
+WORKDIR /app
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh \
     && mkdir -p /data /usr/share/fonts/truetype/custom \
