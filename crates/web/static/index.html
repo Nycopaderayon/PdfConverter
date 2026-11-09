@@ -409,23 +409,46 @@
         </section>
     </main>
 
-    <!-- BOTTOM BADGES BAR -->
-    <footer class="w-full py-6 flex justify-center items-center">
-        <div class="px-6 py-2.5 rounded-full border border-gray-300 dark:border-navy-border bg-white dark:bg-navy-card/80 backdrop-blur-sm text-xs font-medium text-gray-700 dark:text-gray-300 shadow-md flex items-center space-x-4 sm:space-x-6">
+    <!-- FLOATING BADGES BAR (OUTSIDE NAVBAR) -->
+    <div class="w-full mt-14 mb-8 flex justify-center items-center">
+        <div class="px-6 py-2.5 rounded-full border border-gray-300 dark:border-navy-border bg-white dark:bg-navy-card/80 backdrop-blur-sm text-xs font-medium text-gray-700 dark:text-gray-300 shadow-md flex flex-wrap justify-center items-center gap-4 sm:gap-6">
             <span class="flex items-center gap-1.5">
                 <i class="fa-solid fa-hard-drive text-rust text-xs"></i>
                 <span>Max 25 MB</span>
             </span>
-            <span class="text-gray-400">•</span>
             <span class="flex items-center gap-1.5">
                 <i class="fa-solid fa-shield-halved text-emerald-500 text-xs"></i>
                 <span>Files are deleted automatically</span>
             </span>
-            <span class="text-gray-400">•</span>
             <span class="flex items-center gap-1.5">
                 <i class="fa-solid fa-code-branch text-blue-400 text-xs"></i>
                 <span>MIT licensed</span>
             </span>
+        </div>
+    </div>
+
+    <!-- BOTTOM TERMINAL-STYLE FOOTER -->
+    <footer class="w-full border-t border-gray-200 dark:border-navy-border/80 bg-white dark:bg-navy-inner/90 text-gray-700 dark:text-gray-300 transition-colors">
+        <!-- Main Terminal Footer Content -->
+        <div class="max-w-6xl mx-auto px-6 sm:px-10 py-8">
+            <!-- Left Column: Title & Description -->
+            <div class="space-y-2 text-center sm:text-left">
+                <div class="flex items-center justify-center sm:justify-start gap-2">
+                    <span class="w-2 h-2 rounded-full bg-rust animate-pulse inline-block"></span>
+                    <h3 class="text-lg sm:text-xl font-bold font-mono tracking-tight text-gray-900 dark:text-gray-100">
+                        <span class="text-rust">Nyc_</span><span>PdfWord</span>
+                    </h3>
+                </div>
+                <p class="text-xs font-mono text-gray-500 dark:text-gray-400 max-w-lg leading-relaxed">
+                    High-performance open-source document conversion engine by Nyco Paderayon. Fast, private local conversions between PDF, Word, and WPS formats.
+                </p>
+            </div>
+        </div>
+
+        <!-- Bottom Copyright Line -->
+        <div class="max-w-6xl mx-auto px-6 sm:px-10 py-4 border-t border-gray-200/50 dark:border-navy-border/40 text-[11px] font-mono text-gray-400 dark:text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <span>© 2026 Nyco Paderayon — Open Source Converter</span>
+            <span class="text-[10px] text-gray-400 dark:text-gray-600">Built with Rust</span>
         </div>
     </footer>
 
