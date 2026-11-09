@@ -210,7 +210,10 @@ async fn favicon() -> impl IntoResponse {
     (
         [
             (header::CONTENT_TYPE, HeaderValue::from_static("image/png")),
-            (header::CACHE_CONTROL, HeaderValue::from_static("public, max-age=86400")),
+            (
+                header::CACHE_CONTROL,
+                HeaderValue::from_static("public, max-age=86400"),
+            ),
         ],
         FAVICON_BYTES,
     )
