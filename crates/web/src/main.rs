@@ -638,7 +638,10 @@ async fn main() {
         .layer(DefaultBodyLimit::max(state.max_upload + 1024 * 1024))
         .with_state(state);
 
-    let bind = std::env::var("BIND_ADDR").unwrap_or_else(|_| "127.0.0.1:8080".to_string());
+    let bind = std::env::var("BIND_ADDR")
+        .ok()
+        .or_else(|| std::env::var("PORT").ok().map(|p| format!("0.0.0.0:{p}")))
+        .unwrap_or_else(|| "127.0.0.1:8080".to_string());
     let address: SocketAddr = bind.parse().expect("invalid BIND_ADDR");
     let listener = tokio::net::TcpListener::bind(address)
         .await
